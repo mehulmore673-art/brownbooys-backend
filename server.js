@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/restaurant")
+mongoose.connect(process.env.mongodb+srv://mehulmore673_db_user:More1988@cluster0.k86ou0d.mongodb.net/?appName=Cluster0)
   .then(() => console.log("MongoDB Connected ✅"))
   .catch(err => console.log("Mongo Error ❌", err));
 
