@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.mongodb+srv://mehulmore673_db_user:More1988@cluster0.k86ou0d.mongodb.net/?appName=Cluster0)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected ✅"))
   .catch(err => console.log("Mongo Error ❌", err));
 
@@ -364,7 +364,6 @@ app.get("/api/debug/orders", async (req, res) => {
 /* ============================
    SERVER
 ============================ */
-
-app.listen(5000, () => {
-  console.log("Server running on port 5000 ✅");
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server running on port ${process.env.PORT || 5000} ✅`);
 });
