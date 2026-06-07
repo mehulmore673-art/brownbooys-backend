@@ -366,7 +366,12 @@ app.get("/api/debug/orders", async (req, res) => {
 /* ============================
    SERVER
 ============================ */
-
+app.get("/api/render-test", (req, res) => {
+  res.json({
+    success: true,
+    message: "NEW CODE IS RUNNING"
+  });
+});
 app.listen(5000, () => {
   console.log("Server running on port 5000 ✅");
 }); 
