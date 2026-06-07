@@ -24,29 +24,65 @@ exports.getMenu = async (req, res) => {
 ================================ */
 exports.addItem = async (req, res) => {
   try {
-    const { name, price, image, category, description } = req.body;
+    const {
+      en,
+      hi,
+      gu,
+      description,
+      price,
+      variants,
+      isNew,
+      isBestseller,
+      isHot,
+      isVeg,
+      rating,
+      prepTime,
+    } = req.body;
 
-    if (!name || !price) {
-      return res.status(400).json({ message: "Name & price required" });
+    if (!en || (!price && !variants)) {
+      return res.status(400).json({
+        error: "Invalid item",
+      });
     }
 
+    const image = req.file ? req.file.path : "";
+
+    const lastItem = await Menu.findOne().sort({ id: -1 });
+
     const item = await Menu.create({
-      name,
-      price,
-      image,
-      category,
+      id: lastItem ? lastItem.id + 1 : 1,
+
+      title: {
+        en,
+        hi,
+        gu,
+      },
+
       description,
+      image,
+      price: price || null,
+
+      variants: variants ? JSON.parse(variants) : [],
+
+      isNew: isNew === "true",
+      isBestseller: isBestseller === "true",
+      isHot: isHot === "true",
+      isVeg: isVeg !== "false",
+
+      rating,
+      prepTime,
     });
 
     res.status(201).json({
-      status: "success",
-      message: "Item added",
-      data: item,
+      success: true,
+      item,
     });
 
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ message: "Failed to add item" });
+    console.error(error);
+    res.status(500).json({
+      error: "Failed to add item",
+    });
   }
 };
 

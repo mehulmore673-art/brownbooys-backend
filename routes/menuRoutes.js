@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const adminAuth = require("../middleware/admin");
 const {
   getMenu,
   addItem,
@@ -18,7 +19,6 @@ const {
 router.get("/", getMenu);
 
 // Admin only
-router.post("/", protect, adminOnly, addItem);
-router.delete("/:id", protect, adminOnly, deleteItem);
-
+router.post("/", adminAuth, addItem);
+router.delete("/:id", adminAuth, deleteItem);
 module.exports = router;

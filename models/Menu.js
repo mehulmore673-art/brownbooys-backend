@@ -2,15 +2,17 @@ const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
+    id: Number,
+
+    title: {
+      en: String,
+      hi: String,
+      gu: String,
     },
 
-    price: {
-      type: Number,
-      required: true,
+    description: {
+      type: String,
+      default: "",
     },
 
     image: {
@@ -18,15 +20,23 @@ const menuSchema = new mongoose.Schema(
       default: "",
     },
 
-    category: {
-      type: String,
-      required: true,
-      enum: ["Starter", "Main", "Dessert", "Beverage"],
+    price: Number,
+
+    variants: Array,
+
+    isNew: {
+      type: Boolean,
+      default: false,
     },
 
-    description: {
-      type: String,
-      default: "",
+    isBestseller: {
+      type: Boolean,
+      default: false,
+    },
+
+    isHot: {
+      type: Boolean,
+      default: false,
     },
 
     isVeg: {
@@ -37,6 +47,11 @@ const menuSchema = new mongoose.Schema(
     rating: {
       type: Number,
       default: 4,
+    },
+
+    prepTime: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

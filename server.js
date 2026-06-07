@@ -3,6 +3,7 @@ const paymentRoutes = require("./routes/payment");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const adminRoutes = require("./routes/adminRoutes");
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected ✅"))
@@ -30,6 +31,7 @@ const Order = mongoose.model("Order", OrderSchema);
 app.use(cors());
 app.use(express.json());
 app.use("/api/payment", paymentRoutes);
+app.use("/api/admin", adminRoutes);
 
 /* ============================
    DATA STORAGE
